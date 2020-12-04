@@ -25,7 +25,6 @@ class Document:
 
 def both_parts(passports):
     p1total = p2total = 0
-    current_pass = Document
     current_pass = Document()
     for line in passports:
         if line == '':
