@@ -1,26 +1,9 @@
-def decode(ticket):
-    ticket = ticket.replace('F', '0')
-    ticket = ticket.replace('B', '1')
-    ticket = ticket.replace('R', '1')
-    ticket = ticket.replace('L', '0')
-    return int(ticket, 2)
-
-
-def p1(tickets):
-    return max([decode(ticket) for ticket in tickets])
-
-
 def p2(tickets):
-    seats = sorted([decode(ticket) for ticket in tickets])
-    current = seats[0]
-    for seat in range(1, len(seats)):
-        if seats[seat] != current + 1:
-            return current + 1
-        current += 1
+    for seat in range(1, len(tickets)):
+        if tickets[seat] != tickets[seat - 1] + 1:
+            return tickets[seat - 1] + 1
 
 
 with open('../inputs/day5in.txt') as phone_scan:
-    ticket_list = [x.strip() for x in phone_scan.readlines()]
-
-print(p1(ticket_list))
-print(p2(ticket_list))
+    ticket_list = [int(x.strip().replace('F', '0').replace('L', '0').replace('B', '1').replace('R', '1'), 2) for x in phone_scan.readlines()]
+print(f"P1: {max(ticket_list)} || P2: {p2(sorted(ticket_list))}")
