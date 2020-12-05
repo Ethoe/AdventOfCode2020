@@ -5,5 +5,5 @@ def p2(tickets):
 
 
 with open('../inputs/day5in.txt') as phone_scan:
-    ticket_list = [int(x.strip().replace('F', '0').replace('L', '0').replace('B', '1').replace('R', '1'), 2) for x in phone_scan.readlines()]
+    ticket_list = [int(x.translate(x.maketrans("FBLR", "0101")), 2) for x in phone_scan.readlines()]
 print(f"P1: {max(ticket_list)} || P2: {p2(sorted(ticket_list))}")
