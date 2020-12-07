@@ -21,41 +21,40 @@ def decode(rules):
     return res
 
 
-def target_in_rule(rule_map, target, rule):
-    if not rule_map[rule]:
+def target_in_rule(rules, target, rule):
+    if not rules[rule]:
         return False
     res = False
-    for bag in rule_map[rule]:
+    for bag in rules[rule]:
         if bag[1] == target:
             return True
         else:
-            res = res or target_in_rule(rule_map, target, bag[1])
+            res = res or target_in_rule(rules, target, bag[1])
     return res
 
 
-def total_bags(rule_map, target):
+def total_bags(rules, target):
     sum = 0
-    if not rule_map[target]:
+    if not rules[target]:
         return 0
-    for bag in rule_map[target]:
-        sum += bag[0] + bag[0] * total_bags(rule_map, bag[1])
+    for bag in rules[target]:
+        sum += bag[0] + bag[0] * total_bags(rules, bag[1])
     return sum
 
 
 def p1(rules, target):
-    rule_map = decode(rules)
     total = 0
-    for rule in rule_map:
-        total += int(target_in_rule(rule_map, target, rule))
+    for rule in rules:
+        total += int(target_in_rule(rules, target, rule))
     return total
 
 
 def p2(rules, target):
-    rule_map = decode(rules)
-    return total_bags(rule_map, target)
+    return total_bags(rules, target)
 
 
 with open('../inputs/day7in.txt') as i:
     rules_tokens = [x.strip().split() for x in i.readlines()]
+rule_map = decode(rules_tokens)
 
-print(f'P1: {p1(rules_tokens, "shiny gold")} || P2: {p2(rules_tokens, "shiny gold")}')
+print(f'P1: {p1(rule_map, "shiny gold")} || P2: {p2(rule_map, "shiny gold")}')
