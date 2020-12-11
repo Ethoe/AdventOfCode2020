@@ -21,7 +21,6 @@ def p2(adapters):
             if i - attempt >= 0 and curr - sort_a[i - attempt] <= 3:
                 counts[i] += counts[i - attempt]
 
-    print(counts)
     return counts[len(sort_a) - 1]
 
 
